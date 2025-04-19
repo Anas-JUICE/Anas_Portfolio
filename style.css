@@ -975,3 +975,26 @@ body.dark-theme .experience-container::before {
         padding: 0.6rem;
     }
 }
+
+body.dark-theme p,
+body.dark-theme span,
+body.dark-theme li,
+body.dark-theme a {
+    color: #e0e0e0;
+}
+
+body.dark-theme .btn {
+    color: white;
+    background-color: var(--secondary-color);
+}
+body.dark-theme .btn:hover {
+    background-color: var(--primary-color);
+}
+
+body.dark-theme .section-title::after {
+    background-color: var(--secondary-color);
+}
+
+body.dark-theme .footer-text {
+    color: #aaa;
+}
