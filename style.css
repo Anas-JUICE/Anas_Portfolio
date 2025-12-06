@@ -295,7 +295,7 @@ img {
 /* Skills & Certifications */
 .skills-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Better responsiveness */
     gap: 2rem;
 }
 
@@ -538,9 +538,8 @@ img {
 /* Education */
 .education-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
-    justify-content: center; /* Center the grid items */
 }
 
 .education-card {
@@ -782,8 +781,8 @@ body.dark-theme {
     color: #e0e0e0;
 }
 
-/* Ensures sections with inline colors or default body background switch */
-body.dark-theme section {
+/* Fix for sections with inline light background colors in HTML */
+body.dark-theme section[style] {
     background-color: #121212 !important;
 }
 
@@ -849,11 +848,6 @@ body.dark-theme .contact-info-item {
     .contact-container {
         grid-template-columns: 1fr;
     }
-    .education-container {
-        /* Ensure centering on smaller screens too */
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        justify-content: center;
-    }
 }
 
 @media (max-width: 768px) {
@@ -872,7 +866,7 @@ body.dark-theme .contact-info-item {
     .nav-links {
         position: fixed;
         top: 0;
-        right: -300px;
+        right: -300px; /* Start off-screen right */
         width: 300px;
         height: 100vh;
         background-color: var(--primary-color);
