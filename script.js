@@ -7,7 +7,7 @@ mobileMenuBtn.addEventListener('click', () => {
     mobileMenuBtn.classList.toggle('active');
     navLinks.classList.toggle('active');
     
-    // Toggle between hamburger and close icon
+    // Toggle between hamburger (fa-bars) and close (fa-times) icon
     const icon = mobileMenuBtn.querySelector('i');
     if (mobileMenuBtn.classList.contains('active')) {
         icon.classList.remove('fa-bars');
@@ -40,7 +40,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
-            const headerOffset = 70; // Adjust based on your header height
+            const headerOffset = 70; // Header height adjustment
             const elementPosition = targetElement.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
