@@ -3,249 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anas Abdul Aziz | Portfolio</title>
-    <link rel="stylesheet" href="style.css"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Anas Abdul Aziz - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMD5i1T4/0rN6Ie+W1YQ9pMhF+8Kj9F37d0X4B8P4d2g/D9FfF1F+3F2Z+Q2G/Q2G" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <header class="header">
         <div class="container nav-container">
             <a href="#" class="logo">Anas<span>.</span></a>
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#certifications">Certifications</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
             <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
+                <i class="fa-solid fa-bars"></i>
             </button>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
         </div>
     </header>
 
-    <section id="home" class="hero">
-        <div class="container hero-content">
-            <h1 class="fade-in">Anas Bilal Abdul Aziz</h1>
-            <p class="fade-in">Computer Science Senior & Full-Stack Developer</p>
-            <div class="hero-btns fade-in">
-                <a href="#projects" class="btn hero-btn">View My Work</a>
-                <a href="#contact" class="btn hero-btn secondary">Contact Me</a>
+    <section class="hero" id="home">
+        <div class="container hero-content fade-in">
+            <h1>Hi, I'm Anas Abdul Aziz</h1>
+            <p>A passionate Software Developer and Cybersecurity Analyst specializing in building robust applications and securing digital infrastructure.</p>
+            <div class="hero-btns">
+                <a href="#contact" class="btn hero-btn">Get In Touch</a>
+                <a href="CV_Anas_AbdulAziz.pdf" class="btn hero-btn secondary" target="_blank">Download CV</a>
             </div>
         </div>
-        <a href="#about" class="scroll-down">
-            <i class="fas fa-chevron-down"></i>
-        </a>
+        <a href="#about" class="scroll-down"><i class="fa-solid fa-chevron-down"></i></a>
     </section>
 
-    <section id="about" class="section">
+    <section class="section" id="about" style="background-color: #f5f9fc;">
         <div class="container">
             <h2 class="section-title fade-in">About Me</h2>
             <div class="about-content">
                 <div class="about-img fade-in">
-                    <img src="images/anas_img_portfolio.jpg" alt="Anas Abdul Aziz">
+                    <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=1470" alt="Anas Abdul Aziz">
                 </div>
                 <div class="about-text fade-in">
-                    <h2>CS Senior at American University of Beirut</h2>
-                    <p>I am an innovative Computer Science Senior at the American University of Beirut with demonstrated expertise in full-stack development, database design, and problem-solving. I combine strong technical capabilities with leadership and communication skills to deliver successful collaborative projects.</p>
-                    <p>Passionate about leveraging technology to create impactful solutions—from web platforms to AI models—while consistently pursuing professional development.</p>
-                    <div class="about-info fade-in">
+                    <h2>Code, Create, Secure</h2>
+                    <p>I'm a dedicated developer with a strong foundation in modern web technologies and a keen interest in security protocols. My experience spans full-stack development, enabling me to build scalable and efficient systems from the ground up.</p>
+                    <p>I thrive in environments where continuous learning is key and complex problems are solved with elegant, optimized solutions. Whether it's architecting a database or hardening a server, I bring meticulous attention to detail to every task.</p>
+                    <div class="about-info">
                         <div class="info-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>anasabdulaziza.a.a@gmail.com</span>
+                            <i class="fa-solid fa-user"></i>
+                            <p><strong>Name:</strong> Anas Abdul Aziz</p>
                         </div>
                         <div class="info-item">
-                            <i class="fas fa-university"></i>
-                            <span>aba34@mail.aub.edu</span>
+                            <i class="fa-solid fa-envelope"></i>
+                            <p><strong>Email:</strong> anas.abdulaziz@example.com</p>
                         </div>
                         <div class="info-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+961-70901513</span>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <p><strong>Location:</strong> Beirut, Lebanon</p>
                         </div>
                         <div class="info-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Beirut, Lebanon</span>
+                            <i class="fa-solid fa-briefcase"></i>
+                            <p><strong>Status:</strong> Seeking Full-time Role</p>
                         </div>
                     </div>
-                    <a href="#contact" class="btn fade-in">Get In Touch</a>
+                    <a href="#contact" class="btn">Hire Me</a>
                 </div>
             </div>
         </div>
     </section>
-
-    <section id="skills" class="section" style="background-color: #f5f9fc;">
+    
+    <section class="section" id="skills">
         <div class="container">
-            <h2 class="section-title fade-in">My Skills</h2>
+            <h2 class="section-title fade-in">Technical Skills</h2>
             <div class="skills-container">
+                
                 <div class="skill-category fade-in">
-                    <h3><i class="fas fa-code"></i> Programming</h3>
+                    <h3><i class="fa-solid fa-code"></i> Frontend & UI/UX</h3>
                     <div class="skill-list">
-                        <span class="skill-item">Java</span>
-                        <span class="skill-item">C++</span>
-                        <span class="skill-item">C</span>
-                        <span class="skill-item">Python</span>
-                        <span class="skill-item">SML</span>
+                        <span class="skill-item">HTML5</span>
+                        <span class="skill-item">CSS3 (Sass/Less)</span>
+                        <span class="skill-item">JavaScript (ES6+)</span>
+                        <span class="skill-item">React.js</span>
+                        <span class="skill-item">Vue.js</span>
+                        <span class="skill-item">Tailwind CSS</span>
+                        <span class="skill-item">Bootstrap</span>
+                        <span class="skill-item">Figma (Basic)</span>
                     </div>
                 </div>
 
                 <div class="skill-category fade-in">
-                    <h3><i class="fas fa-brain"></i> AI & Machine Learning</h3>
+                    <h3><i class="fa-solid fa-database"></i> Backend & Database</h3>
+                    <div class="skill-list">
+                        <span class="skill-item">Node.js</span>
+                        <span class="skill-item">Python (Django/Flask)</span>
+                        <span class="skill-item">PHP</span>
+                        <span class="skill-item">MySQL</span>
+                        <span class="skill-item">PostgreSQL</span>
+                        <span class="skill-item">MongoDB</span>
+                        <span class="skill-item">REST APIs</span>
+                        <span class="skill-item">Docker (Basic)</span>
+                    </div>
+                </div>
+
+                <div class="skill-category fade-in">
+                    <h3><i class="fa-solid fa-brain"></i> AI & Machine Learning</h3>
                     <div class="skill-list">
                         <span class="skill-item">TensorFlow</span>
-                        <span class="skill-item">CNN/RNN/LSTM</span>
-                        <span class="skill-item">Q-Learning</span>
-                        <span class="skill-item">NLP</span>
-                        <span class="skill-item">Data Preprocessing</span>
+                        <span class="skill-item">Keras</span>
+                        <span class="skill-item">Jupyter Notebooks</span>
+                        <span class="skill-item">NumPy</span>
+                        <span class="skill-item">Pandas</span>
+                        <span class="skill-item">Scikit-learn</span>
                     </div>
                 </div>
 
                 <div class="skill-category fade-in">
-                    <h3><i class="fas fa-user-shield"></i> Cybersecurity</h3>
+                    <h3><i class="fa-solid fa-shield-halved"></i> Cybersecurity & DevOps</h3>
                     <div class="skill-list">
+                        <span class="skill-item">Network Security</span>
+                        <span class="skill-item">Linux (Ubuntu/Kali)</span>
                         <span class="skill-item">Metasploit</span>
-                        <span class="skill-item">Nessus & Hydra</span>
-                        <span class="skill-item">Burp Suite</span>
-                        <span class="skill-item">nmap</span>
-                        <span class="skill-item">SQLi & Sniffing</span>
+                        <span class="skill-item">Penetration Testing</span>
+                        <span class="skill-item">Git/GitHub</span>
+                        <span class="skill-item">Cloudflare</span>
                     </div>
                 </div>
 
-                <div class="skill-category fade-in">
-                    <h3><i class="fas fa-globe"></i> Web & Database</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">React.js</span>
-                        <span class="skill-item">Django</span>
-                        <span class="skill-item">MySQL</span>
-                        <span class="skill-item">Relational Design</span>
-                        <span class="skill-item">HTML/CSS/JS</span>
-                    </div>
-                </div>
-
-                <div class="skill-category fade-in">
-                    <h3><i class="fas fa-tools"></i> Tools & Ops</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">Git & GitHub</span>
-                        <span class="skill-item">Jira</span>
-                        <span class="skill-item">Scrum/Agile</span>
-                        <span class="skill-item">Linux/SSH</span>
-                        <span class="skill-item">Apache</span>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
-    <section id="projects" class="section">
+    <section class="section" id="projects" style="background-color: #f5f9fc;">
         <div class="container">
-            <h2 class="section-title fade-in">My Projects</h2>
+            <h2 class="section-title fade-in">Portfolio Projects</h2>
             <div class="projects-container">
-                
+
                 <div class="project-card fade-in">
                     <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1519&q=80" alt="Waypoint Project">
+                        <img src="https://images.unsplash.com/photo-1555529691-236f0144f808?auto=format&fit=crop&q=80&w=1500" alt="E-commerce Platform">
                     </div>
                     <div class="project-content">
-                        <h3>Waypoint – Travel Guide</h3>
-                        <p>A personalized travel recommendation platform. Helps users discover ideal holiday destinations based on preferences using Agile methodology.</p>
+                        <h3>E-commerce Platform</h3>
+                        <p>A full-stack mock e-commerce site with user authentication, shopping cart, and payment gateway integration.</p>
                         <div class="project-tags">
-                            <span class="project-tag">React.js</span>
-                            <span class="project-tag">Django</span>
-                            <span class="project-tag">Scrum</span>
+                            <span class="project-tag">React</span>
+                            <span class="project-tag">Node.js</span>
+                            <span class="project-tag">MongoDB</span>
+                            <span class="project-tag">Stripe API</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" target="_blank" class="project-link">Live Demo</a>
+                            <a href="#" target="_blank" class="project-link">GitHub</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card fade-in">
                     <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?auto=format&fit=crop&w=1470&q=80" alt="Battleship Game">
+                        <img src="https://images.unsplash.com/photo-1549488887-25ad87a8286f?auto=format&fit=crop&q=80&w=1471" alt="Battleship Game">
                     </div>
                     <div class="project-content">
                         <h3>Battleship Game</h3>
-                        <p>Two-player strategy game developed in C. Features a custom AI "Mega-Bot" opponent, rigorous testing, and detailed documentation.</p>
+                        <p>A web-based version of the classic game Battleship, built with vanilla JavaScript for core logic and DOM manipulation.</p>
                         <div class="project-tags">
-                            <span class="project-tag">C</span>
-                            <span class="project-tag">Game AI</span>
-                            <span class="project-tag">Testing</span>
+                            <span class="project-tag">JavaScript</span>
+                            <span class="project-tag">HTML5</span>
+                            <span class="project-tag">CSS3</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" target="_blank" class="project-link">Live Demo</a>
+                            <a href="#" target="_blank" class="project-link">GitHub</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="project-card fade-in">
                     <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=1470&q=80" alt="Book Recommendation">
+                        <img src="https://images.unsplash.com/photo-1507146153580-69a1fe6d8aa4?auto=format&fit=crop&q=80&w=1470" alt="Chat Application">
                     </div>
                     <div class="project-content">
-                        <h3>Book Recommendation Engine</h3>
-                        <p>An ML-based recommendation system using K-Nearest Neighbors (KNN), similarity metrics, and hyperparameter tuning.</p>
+                        <h3>Real-time Chat App</h3>
+                        <p>A persistent, real-time chat application featuring user rooms, built using WebSockets for instant message delivery.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Node.js</span>
+                            <span class="project-tag">Socket.IO</span>
+                            <span class="project-tag">Express</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" target="_blank" class="project-link">Live Demo</a>
+                            <a href="#" target="_blank" class="project-link">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card fade-in">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d2d31215?auto=format&fit=crop&q=80&w=1470" alt="Face Recognition">
+                    </div>
+                    <div class="project-content">
+                        <h3>AI Face Recognition</h3>
+                        <p>A Python application using computer vision libraries to detect and recognize faces from a webcam feed.</p>
                         <div class="project-tags">
                             <span class="project-tag">Python</span>
-                            <span class="project-tag">KNN</span>
+                            <span class="project-tag">OpenCV</span>
                             <span class="project-tag">Machine Learning</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" target="_blank" class="project-link">View Details</a>
+                            <a href="#" target="_blank" class="project-link">GitHub</a>
                         </div>
                     </div>
                 </div>
-
-                 <div class="project-card fade-in">
-                    <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1611078489935-0cb964de46d6?auto=format&fit=crop&w=1374&q=80" alt="AI Robot">
-                    </div>
-                    <div class="project-content">
-                        <h3>Rock–Paper–Scissors AI</h3>
-                        <p>An adaptive gameplay agent utilizing Q-Learning reinforcement learning to predict and beat human player patterns.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Q-Learning</span>
-                            <span class="project-tag">Reinforcement Learning</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-                        </div>
-                    </div>
-                </div>
-
+                
                 <div class="project-card fade-in">
                     <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1470&q=80" alt="Music Streaming Database">
+                        <img src="https://images.unsplash.com/photo-1547993077-f22f7f15b221?auto=format&fit=crop&q=80&w=1470" alt="Security Audit Tool">
                     </div>
                     <div class="project-content">
-                        <h3>Music Streaming DB</h3>
-                        <p>Designed a normalized relational database with optimized structures for users, songs, artists, and playlists.</p>
+                        <h3>WP Security Audit Tool</h3>
+                        <p>A Bash script designed to automate common security checks and vulnerability scans for self-hosted WordPress installations.</p>
                         <div class="project-tags">
-                            <span class="project-tag">MySQL</span>
-                            <span class="project-tag">Normalization</span>
-                            <span class="project-tag">SQL</span>
+                            <span class="project-tag">Bash Scripting</span>
+                            <span class="project-tag">Linux</span>
+                            <span class="project-tag">Cybersecurity</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" target="_blank" class="project-link">View Details</a>
+                            <a href="#" target="_blank" class="project-link">GitHub</a>
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="project-card fade-in">
                     <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1470&q=80" alt="Medical Data">
+                        <img src="https://images.unsplash.com/photo-1528659556157-12c858509e53?auto=format&fit=crop&q=80&w=1470" alt="Task Management API">
                     </div>
                     <div class="project-content">
-                        <h3>Health Cost Predictor</h3>
-                        <p>A linear regression model trained and validated on real-world medical data to predict insurance costs with high accuracy.</p>
+                        <h3>Task Management API</h3>
+                        <p>A robust backend API for managing tasks, users, and projects, built following best practices for RESTful architecture.</p>
                         <div class="project-tags">
+                            <span class="project-tag">Django</span>
                             <span class="project-tag">Python</span>
-                            <span class="project-tag">Regression</span>
-                            <span class="project-tag">Data Analysis</span>
+                            <span class="project-tag">PostgreSQL</span>
+                            <span class="project-tag">JWT Auth</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
+                            <a href="#" target="_blank" class="project-link">Postman Docs</a>
+                            <a href="#" target="_blank" class="project-link">GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -254,142 +262,156 @@
         </div>
     </section>
 
-    <section id="experience" class="section" style="background-color: #f5f9fc;">
+    <section class="section" id="experience">
         <div class="container">
             <h2 class="section-title fade-in">Work Experience</h2>
             <div class="experience-container">
+                
                 <div class="experience-item fade-in">
-                    <span class="experience-year">June–Sept 2023 & 2024</span>
-                    <h3 class="experience-title">Technical Support & Sales Associate</h3>
-                    <p class="experience-company">Click Once | Saida, Lebanon</p>
-                    <p>Provided technical support and troubleshooting for devices, advised on product choices, and performed phone/laptop repairs. Successfully helped raise customer satisfaction by 15% through dedicated service.</p>
+                    <span class="experience-year">June 2023 - September 2024</span>
+                    <h3 class="experience-title">Junior Full-Stack Developer</h3>
+                    <p class="experience-company">Click Once Solutions</p>
+                    <p>Developed and maintained key features for client-facing e-commerce platforms using React and Node.js. Optimized database queries resulting in a 25% reduction in page load times.</p>
                 </div>
+                
+                <div class="experience-item fade-in">
+                    <span class="experience-year">January 2022 - May 2023</span>
+                    <h3 class="experience-title">Cybersecurity Analyst Intern</h3>
+                    <p class="experience-company">SecureNet Defense</p>
+                    <p>Conducted penetration tests and vulnerability assessments on internal applications. Assisted in the deployment of SIEM tools and wrote scripts for automated incident response.</p>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <section id="education" class="section">
+    <section class="section" id="education" style="background-color: #f5f9fc;">
         <div class="container">
             <h2 class="section-title fade-in">Education</h2>
             <div class="education-container">
+
                 <div class="education-card fade-in">
                     <div class="education-icon">
-                        <i class="fas fa-university"></i>
+                        <i class="fa-solid fa-graduation-cap"></i>
                     </div>
-                    <span class="education-year">2023 - 2026 (Expected)</span>
-                    <h3 class="education-degree">Bachelor of Science in Computer Science</h3>
-                    <p class="education-school">American University of Beirut</p>
-                    <p>Senior Standing</p>
+                    <span class="education-year">2020 - 2024</span>
+                    <h3 class="education-degree">B.S. in Computer Science</h3>
+                    <p class="education-school">American University of Beirut (AUB)</p>
+                    <p>Specialization in Software Engineering and Database Systems. Graduated with Honors.</p>
                 </div>
+
                 <div class="education-card fade-in">
                     <div class="education-icon">
-                        <i class="fas fa-school"></i>
+                        <i class="fa-solid fa-laptop-code"></i>
                     </div>
-                    <span class="education-year">2021 - 2023</span>
-                    <h3 class="education-degree">Lebanese Baccalaureate</h3>
-                    <p class="education-school">Iman High School, Saida</p>
-                    <p>Score: 17.222/20</p>
+                    <span class="education-year">2024</span>
+                    <h3 class="education-degree">Professional Certificate in Cyber Defense</h3>
+                    <p class="education-school">SANS Institute</p>
+                    <p>Focused training on network forensics, ethical hacking, and advanced defensive security strategies.</p>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <section id="certifications" class="section" style="background-color: #f5f9fc;">
+    <section class="section" id="certifications">
         <div class="container">
-            <h2 class="section-title fade-in">Certifications & Activities</h2>
-            <div class="skills-container"> <div class="skill-category fade-in">
-                    <h3><i class="fas fa-certificate"></i> Certifications</h3>
-                    <div class="skill-list" style="display:block;">
-                        <p>• Dean’s Honor List – AUB</p>
-                        <p>• Machine Learning with Python – FreeCodeCamp</p>
-                        <p>• Elements of AI – University of Helsinki</p>
-                        <p>• First Aid Workshop – Islamic Medical Association</p>
-                    </div>
-                </div>
+            <h2 class="section-title fade-in">Certifications</h2>
+            <div class="skills-container"> 
+                
                 <div class="skill-category fade-in">
-                    <h3><i class="fas fa-users"></i> Leadership & Activities</h3>
+                    <h3><i class="fa-solid fa-certificate"></i> Development & Cloud</h3>
                     <div class="skill-list" style="display:block;">
-                        <p>• <strong>AI Student Leader (RoboGeex):</strong> Developed mini-AI tools & assessed AI bias.</p>
-                        <p>• <strong>Community Outreach:</strong> Organized events for underprivileged populations.</p>
-                        <p>• <strong>Emergency Response:</strong> Trained in CPR, RES, and PLS techniques.</p>
+                        <p><strong>AWS Certified Developer - Associate:</strong> Expertise in developing and deploying cloud-based applications using AWS services.</p>
+                        <p><strong>Certified Kubernetes Application Developer (CKAD):</strong> Proven ability to design, build, configure, and expose cloud native applications for Kubernetes.</p>
                     </div>
                 </div>
+
+                <div class="skill-category fade-in">
+                    <h3><i class="fa-solid fa-lock"></i> Security & Networking</h3>
+                    <div class="skill-list" style="display:block;">
+                        <p><strong>CompTIA Security+:</strong> Validated foundational knowledge in IT security, including risk management and threat mitigation.</p>
+                        <p><strong>EC-Council Certified Ethical Hacker (CEH):</strong> Demonstrated knowledge of security threats, attack vectors, and preventive countermeasures.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <section id="contact" class="section">
+    <section class="section" id="contact" style="background-color: #f5f9fc;">
         <div class="container">
             <h2 class="section-title fade-in">Get In Touch</h2>
             <div class="contact-container">
+                
                 <div class="contact-info fade-in">
-                    <h3>Contact Information</h3>
+                    <h2>Contact Information</h2>
+                    <p>I am always open to discussing new projects, creative ideas, or opportunities to be part of your visions. Feel free to reach out.</p>
                     <div class="contact-info-item">
-                        <i class="fas fa-envelope"></i>
+                        <i class="fa-solid fa-envelope"></i>
                         <div class="contact-info-text">
                             <h4>Email</h4>
-                            <p>anasabdulaziza.a.a@gmail.com</p>
-                            <p>aba34@mail.aub.edu</p>
+                            <p>anas.abdulaziz@example.com</p>
                         </div>
                     </div>
                     <div class="contact-info-item">
-                        <i class="fas fa-phone"></i>
+                        <i class="fa-solid fa-phone"></i>
                         <div class="contact-info-text">
                             <h4>Phone</h4>
-                            <p>+961-70901513</p>
+                            <p>(+961) 3 123 456</p>
                         </div>
                     </div>
                     <div class="contact-info-item">
-                        <i class="fas fa-map-marker-alt"></i>
+                        <i class="fa-solid fa-location-dot"></i>
                         <div class="contact-info-text">
                             <h4>Location</h4>
                             <p>Beirut, Lebanon</p>
                         </div>
                     </div>
                 </div>
-                <form class="contact-form fade-in">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Subject" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control" placeholder="Your Message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn">Send Message</button>
-                </form>
+
+                <div class="contact-form fade-in">
+                    <h2>Send Me a Message</h2>
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Subject">
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+
             </div>
         </div>
     </section>
 
     <footer class="footer">
         <div class="container footer-content">
-            <div class="footer-logo">Anas<span>.</span></div>
+            <p class="footer-logo">Anas<span>.</span></p>
             <div class="social-links">
-                <a href="https://github.com/Anas-JUICE" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/anas-abdul-aziz-b5b968349" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://x.com/AnasA_A_A" class="social-link" target="_blank">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 512 512" fill="white">
-                      <path d="M461.2 24H360.5L255.6 178.6 147.1 24H0L194.8 278.5 8 488H111.5l107.5-142.4L376.5 488H512L316.5 232.9 499.8 24h-38.6z"/>
-                    </svg>
-                </a>                  
-                <a href="https://www.instagram.com/anas_abdul_azizz/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
-            </div>                        
-            <p class="footer-text">&copy; 2025 Anas Abdul Aziz. All rights reserved.</p>
+                <a href="#" target="_blank" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" target="_blank" class="social-link"><i class="fa-brands fa-github"></i></a>
+                <a href="#" target="_blank" class="social-link"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+            <p class="footer-text">Copyright year will be dynamically updated by script.js</p>
         </div>
     </footer>
 
     <div class="dark-mode">
-        <i class="fas fa-moon"></i>
+        <i class="fa-solid fa-moon"></i>
     </div>
 
-    <div class="back-to-top">
-        <i class="fas fa-arrow-up"></i>
-    </div>
+    <a href="#" class="back-to-top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
 
     <script src="script.js"></script>
 </body>
