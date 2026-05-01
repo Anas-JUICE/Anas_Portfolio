@@ -1,396 +1,1707 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anas Abdul Aziz | Portfolio</title>
-    <link rel="stylesheet" href="style.css"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anas Abdul Aziz — CS Engineer & Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ========================================
+   DESIGN TOKENS & RESET
+   ======================================== */
+:root {
+  --bg:        #070b14;
+  --bg2:       #0c1220;
+  --bg3:       #111827;
+  --surface:   #151e2e;
+  --border:    rgba(0,216,255,0.12);
+  --accent:    #00d8ff;
+  --accent2:   #7c3aed;
+  --accent3:   #f59e0b;
+  --text:      #e8edf5;
+  --muted:     #6b7a99;
+  --card:      rgba(21,30,46,0.85);
+  --glow:      0 0 40px rgba(0,216,255,0.15);
+  --glow2:     0 0 80px rgba(0,216,255,0.08);
+  --r:         12px;
+  --r2:        20px;
+  --font-head: 'Syne', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-body: 'Syne', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  line-height:1.7;
+  overflow-x:hidden;
+}
+::selection{background:rgba(0,216,255,0.25);color:#fff;}
+a{color:inherit;text-decoration:none;}
+img{display:block;max-width:100%;}
+
+/* ========================================
+   CANVAS / STARFIELD
+   ======================================== */
+#starfield{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;
+}
+
+/* ========================================
+   SCROLLBAR
+   ======================================== */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px;}
+
+/* ========================================
+   NAV
+   ======================================== */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:0 max(5vw,20px);
+  height:70px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background .4s, backdrop-filter .4s, box-shadow .4s;
+}
+.nav.scrolled{
+  background:rgba(7,11,20,0.85);
+  backdrop-filter:blur(20px);
+  box-shadow:0 1px 0 var(--border);
+}
+.nav-logo{
+  font-family:var(--font-head);
+  font-weight:800;font-size:1.4rem;
+  letter-spacing:-0.5px;
+}
+.nav-logo span{color:var(--accent);}
+.nav-links{
+  display:flex;align-items:center;gap:2rem;list-style:none;
+}
+.nav-links a{
+  font-family:var(--font-mono);font-size:.78rem;
+  color:var(--muted);letter-spacing:.08em;
+  text-transform:uppercase;
+  transition:color .2s;
+  position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;
+  background:var(--accent);transition:width .3s;
+}
+.nav-links a:hover{color:var(--accent);}
+.nav-links a:hover::after{width:100%;}
+.nav-actions{display:flex;align-items:center;gap:1rem;}
+.nav-cta{
+  background:var(--accent);color:var(--bg);
+  font-family:var(--font-mono);font-size:.75rem;
+  font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  padding:.5rem 1.2rem;border-radius:6px;
+  transition:opacity .2s, transform .2s;
+}
+.nav-cta:hover{opacity:.85;transform:translateY(-1px);}
+.hamburger{
+  display:none;flex-direction:column;gap:5px;cursor:pointer;
+  background:none;border:none;padding:4px;
+}
+.hamburger span{
+  display:block;width:22px;height:2px;
+  background:var(--text);border-radius:2px;transition:all .3s;
+}
+.hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.active span:nth-child(2){opacity:0;}
+.hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* Mobile nav */
+.mobile-nav{
+  display:none;position:fixed;inset:0;z-index:99;
+  background:rgba(7,11,20,0.97);backdrop-filter:blur(30px);
+  flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.mobile-nav.open{display:flex;opacity:1;pointer-events:all;}
+.mobile-nav a{
+  font-family:var(--font-head);font-size:2.2rem;font-weight:700;
+  color:var(--muted);transition:color .2s;
+}
+.mobile-nav a:hover{color:var(--accent);}
+
+/* ========================================
+   HERO
+   ======================================== */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:0 max(5vw,20px);
+  overflow:hidden;z-index:1;
+}
+.hero-bg-grid{
+  position:absolute;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(0,216,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,216,255,0.04) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 80%);
+}
+.hero-glow{
+  position:absolute;top:30%;left:50%;transform:translateX(-50%);
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle, rgba(0,216,255,0.08) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-content{
+  position:relative;z-index:2;
+  text-align:center;max-width:900px;
+}
+.hero-label{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-family:var(--font-mono);font-size:.75rem;color:var(--accent);
+  letter-spacing:.15em;text-transform:uppercase;margin-bottom:2rem;
+  border:1px solid var(--border);border-radius:100px;
+  padding:.35rem 1rem;backdrop-filter:blur(8px);
+}
+.hero-label-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--accent);
+  animation:pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.8);}}
+.hero-name{
+  font-family:var(--font-head);
+  font-size:clamp(3rem,8vw,7rem);
+  font-weight:800;
+  line-height:.95;
+  letter-spacing:-3px;
+  margin-bottom:1.5rem;
+}
+.hero-name .word-anas{color:#fff;}
+.hero-name .word-aa{color:var(--accent);}
+.hero-typewriter{
+  font-family:var(--font-mono);
+  font-size:clamp(.9rem,2vw,1.1rem);
+  color:var(--muted);
+  margin-bottom:2.5rem;
+  min-height:1.7em;
+}
+.hero-typewriter .cursor{
+  display:inline-block;width:2px;height:1.1em;
+  background:var(--accent);margin-left:3px;
+  vertical-align:middle;
+  animation:blink .8s step-end infinite;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.hero-desc{
+  max-width:600px;margin:0 auto 3rem;
+  font-size:1.05rem;color:var(--muted);line-height:1.8;
+}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--font-mono);font-size:.8rem;
+  font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  padding:.8rem 1.8rem;border-radius:8px;
+  transition:all .25s;cursor:pointer;
+}
+.btn-primary{
+  background:var(--accent);color:var(--bg);
+  box-shadow:0 0 0 0 rgba(0,216,255,.4);
+}
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(0,216,255,.35);
+}
+.btn-ghost{
+  background:transparent;color:var(--accent);
+  border:1px solid var(--border);
+}
+.btn-ghost:hover{
+  background:rgba(0,216,255,.06);
+  border-color:rgba(0,216,255,.4);
+  transform:translateY(-2px);
+}
+.hero-scroll{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;
+  font-family:var(--font-mono);font-size:.65rem;letter-spacing:.15em;
+  color:var(--muted);text-transform:uppercase;
+  animation:float-up 2s ease-in-out infinite;
+}
+@keyframes float-up{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-6px);}}
+.hero-scroll-line{
+  width:1px;height:40px;
+  background:linear-gradient(to bottom, var(--accent), transparent);
+}
+.hero-stats{
+  display:flex;gap:3rem;justify-content:center;margin-top:3rem;
+  flex-wrap:wrap;
+}
+.hero-stat{}
+.hero-stat-n{
+  font-family:var(--font-head);font-size:2.2rem;font-weight:800;
+  color:var(--accent);letter-spacing:-1px;
+}
+.hero-stat-l{
+  font-family:var(--font-mono);font-size:.7rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.12em;
+}
+
+/* ========================================
+   SECTIONS COMMON
+   ======================================== */
+.section{
+  position:relative;z-index:1;
+  padding:7rem max(5vw,20px);
+}
+.section-alt{background:var(--bg2);}
+.section-inner{max-width:1200px;margin:0 auto;}
+.section-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--font-mono);font-size:.7rem;color:var(--accent);
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:1rem;
+}
+.section-badge::before{
+  content:'';display:block;width:20px;height:1px;background:var(--accent);
+}
+.section-title{
+  font-family:var(--font-head);
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:800;
+  letter-spacing:-1.5px;
+  line-height:1;
+  margin-bottom:1rem;
+}
+.section-title em{
+  font-family:'Instrument Serif',serif;
+  font-style:italic;
+  color:var(--accent);
+}
+.section-sub{
+  font-size:1rem;color:var(--muted);max-width:500px;margin-bottom:4rem;
+}
+
+/* ========================================
+   FADE-IN ANIMATIONS
+   ======================================== */
+.reveal{
+  opacity:0;transform:translateY(30px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:.1s;}
+.reveal-delay-2{transition-delay:.2s;}
+.reveal-delay-3{transition-delay:.3s;}
+.reveal-delay-4{transition-delay:.4s;}
+.reveal-delay-5{transition-delay:.5s;}
+
+/* ========================================
+   ABOUT
+   ======================================== */
+.about-grid{
+  display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:center;
+}
+.about-visual{position:relative;}
+.about-img-wrap{
+  position:relative;
+  width:340px;height:400px;border-radius:var(--r2);
+  overflow:hidden;
+  border:1px solid var(--border);
+}
+.about-img-wrap img{width:100%;height:100%;object-fit:cover;}
+.about-img-placeholder{
+  width:100%;height:100%;
+  background:linear-gradient(135deg, var(--bg3) 0%, var(--surface) 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;
+}
+.about-img-placeholder i{font-size:4rem;color:var(--muted);}
+.about-img-placeholder p{font-family:var(--font-mono);font-size:.75rem;color:var(--muted);}
+.about-corner{
+  position:absolute;bottom:-1rem;right:-1rem;
+  width:120px;height:120px;border-radius:var(--r);
+  background:var(--surface);border:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem;
+  backdrop-filter:blur(10px);
+}
+.about-corner-n{font-family:var(--font-head);font-size:2rem;font-weight:800;color:var(--accent);}
+.about-corner-l{font-family:var(--font-mono);font-size:.6rem;color:var(--muted);text-align:center;letter-spacing:.06em;}
+.about-badge{
+  position:absolute;top:-1rem;right:-1rem;
+  background:var(--accent3);color:var(--bg);
+  font-family:var(--font-mono);font-size:.65rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:.4rem .8rem;border-radius:6px;
+}
+.about-text h3{
+  font-family:var(--font-head);font-size:1.8rem;font-weight:700;
+  letter-spacing:-1px;margin-bottom:1.5rem;line-height:1.2;
+}
+.about-text p{color:var(--muted);margin-bottom:1rem;font-size:.97rem;}
+.about-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.5rem 0;}
+.chip{
+  font-family:var(--font-mono);font-size:.7rem;
+  padding:.3rem .7rem;border-radius:100px;
+  border:1px solid var(--border);color:var(--muted);
+  transition:all .2s;
+}
+.chip:hover{border-color:var(--accent);color:var(--accent);}
+.about-links{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem;}
+.about-link{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-family:var(--font-mono);font-size:.75rem;color:var(--muted);
+  border:1px solid var(--border);padding:.4rem .9rem;border-radius:6px;
+  transition:all .2s;
+}
+.about-link:hover{color:var(--accent);border-color:rgba(0,216,255,.4);}
+
+/* ========================================
+   SKILLS
+   ======================================== */
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1.5rem;
+}
+.skill-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:2rem;
+  transition:transform .3s, box-shadow .3s, border-color .3s;
+  backdrop-filter:blur(8px);
+}
+.skill-card:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--glow);
+  border-color:rgba(0,216,255,.3);
+}
+.skill-card-icon{
+  width:44px;height:44px;border-radius:10px;
+  background:rgba(0,216,255,.1);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;color:var(--accent);
+  margin-bottom:1.2rem;
+}
+.skill-card h3{
+  font-family:var(--font-head);font-size:1rem;font-weight:700;
+  margin-bottom:1rem;letter-spacing:-.3px;
+}
+.skill-tags{display:flex;flex-wrap:wrap;gap:.4rem;}
+.skill-tag{
+  font-family:var(--font-mono);font-size:.68rem;
+  background:rgba(0,216,255,.06);
+  color:var(--accent);
+  border:1px solid rgba(0,216,255,.15);
+  padding:.25rem .6rem;border-radius:4px;
+  transition:background .2s;
+}
+.skill-tag:hover{background:rgba(0,216,255,.15);}
+.skill-tag.neutral{
+  background:rgba(255,255,255,.04);color:var(--muted);
+  border-color:rgba(255,255,255,.08);
+}
+
+/* ========================================
+   PROJECTS
+   ======================================== */
+.projects-filter{
+  display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:3rem;
+}
+.filter-btn{
+  font-family:var(--font-mono);font-size:.72rem;
+  letter-spacing:.08em;text-transform:uppercase;
+  padding:.4rem 1rem;border-radius:6px;
+  background:transparent;color:var(--muted);
+  border:1px solid var(--border);cursor:pointer;
+  transition:all .2s;
+}
+.filter-btn:hover,.filter-btn.active{
+  background:rgba(0,216,255,.1);
+  color:var(--accent);border-color:rgba(0,216,255,.4);
+}
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:1.5rem;
+}
+.project-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--r2);
+  overflow:hidden;
+  transition:transform .35s, box-shadow .35s, border-color .35s;
+  display:flex;flex-direction:column;
+}
+.project-card:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--glow);
+  border-color:rgba(0,216,255,.25);
+}
+.project-card.hidden{display:none;}
+.project-banner{
+  height:180px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+  font-size:4rem;
+}
+.project-banner::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom, transparent 40%, rgba(7,11,20,.8) 100%);
+}
+.project-meta{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1rem;
+}
+.project-type{
+  font-family:var(--font-mono);font-size:.65rem;
+  color:var(--accent3);letter-spacing:.12em;text-transform:uppercase;
+}
+.project-year{
+  font-family:var(--font-mono);font-size:.65rem;color:var(--muted);
+}
+.project-body{padding:1.5rem;flex:1;display:flex;flex-direction:column;}
+.project-body h3{
+  font-family:var(--font-head);font-size:1.1rem;font-weight:700;
+  margin-bottom:.6rem;letter-spacing:-.4px;line-height:1.3;
+}
+.project-body p{
+  font-size:.87rem;color:var(--muted);margin-bottom:1.2rem;
+  flex:1;line-height:1.7;
+}
+.project-techs{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem;}
+.project-tech{
+  font-family:var(--font-mono);font-size:.65rem;
+  background:rgba(124,58,237,.12);
+  color:#a78bfa;border:1px solid rgba(124,58,237,.2);
+  padding:.2rem .5rem;border-radius:4px;
+}
+.project-footer{
+  display:flex;gap:.5rem;padding-top:1rem;
+  border-top:1px solid var(--border);
+}
+.project-link-btn{
+  display:inline-flex;align-items:center;gap:.3rem;
+  font-family:var(--font-mono);font-size:.7rem;color:var(--muted);
+  padding:.35rem .7rem;border-radius:6px;
+  border:1px solid var(--border);transition:all .2s;
+}
+.project-link-btn:hover{color:var(--accent);border-color:rgba(0,216,255,.4);}
+.project-featured{
+  grid-column:span 2;
+}
+.project-featured .project-banner{height:220px;}
+
+/* ========================================
+   RESEARCH
+   ======================================== */
+.research-list{display:flex;flex-direction:column;gap:1.5rem;}
+.research-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--r2);
+  padding:2rem 2.5rem;
+  display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:start;
+  transition:transform .3s, box-shadow .3s;
+}
+.research-card:hover{
+  transform:translateX(6px);
+  box-shadow:var(--glow2);
+}
+.research-num{
+  font-family:var(--font-head);font-size:3rem;font-weight:800;
+  color:rgba(0,216,255,.12);line-height:1;letter-spacing:-2px;
+  min-width:60px;text-align:right;
+}
+.research-info{}
+.research-date{
+  font-family:var(--font-mono);font-size:.7rem;color:var(--accent);
+  letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem;
+}
+.research-info h3{
+  font-family:var(--font-head);font-size:1.25rem;font-weight:700;
+  letter-spacing:-.5px;margin-bottom:.5rem;
+}
+.research-info p{font-size:.9rem;color:var(--muted);line-height:1.7;}
+.research-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem;}
+
+/* ========================================
+   EXPERIENCE & EDUCATION TIMELINE
+   ======================================== */
+.timeline{position:relative;padding-left:2rem;}
+.timeline::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:1px;background:linear-gradient(to bottom, var(--accent), transparent);
+}
+.timeline-item{
+  position:relative;padding:0 0 3rem 2.5rem;
+}
+.timeline-item::before{
+  content:'';position:absolute;left:-5px;top:4px;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 12px var(--accent);
+}
+.timeline-date{
+  font-family:var(--font-mono);font-size:.72rem;
+  color:var(--accent3);letter-spacing:.12em;text-transform:uppercase;
+  margin-bottom:.4rem;
+}
+.timeline-item h3{
+  font-family:var(--font-head);font-size:1.2rem;font-weight:700;
+  letter-spacing:-.4px;margin-bottom:.2rem;
+}
+.timeline-org{
+  font-family:var(--font-mono);font-size:.8rem;color:var(--accent);
+  margin-bottom:.7rem;
+}
+.timeline-item p{font-size:.9rem;color:var(--muted);line-height:1.7;}
+.timeline-award{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-family:var(--font-mono);font-size:.68rem;
+  color:var(--accent3);
+  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);
+  padding:.25rem .6rem;border-radius:4px;margin-top:.6rem;
+}
+
+/* ========================================
+   CERTIFICATIONS
+   ======================================== */
+.certs-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem;
+}
+.cert-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:1.5rem;
+  display:flex;align-items:flex-start;gap:1rem;
+  transition:all .25s;
+}
+.cert-card:hover{
+  border-color:rgba(0,216,255,.3);
+  transform:translateY(-3px);box-shadow:var(--glow);
+}
+.cert-icon{
+  width:40px;height:40px;border-radius:8px;
+  background:rgba(0,216,255,.08);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--accent);font-size:1rem;
+}
+.cert-info h4{font-family:var(--font-head);font-size:.95rem;font-weight:700;margin-bottom:.25rem;}
+.cert-info p{font-family:var(--font-mono);font-size:.7rem;color:var(--muted);}
+
+/* ========================================
+   VOLUNTEERING
+   ======================================== */
+.vol-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;}
+.vol-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:1.8rem;
+  transition:all .25s;
+}
+.vol-card:hover{
+  border-color:rgba(124,58,237,.4);
+  box-shadow:0 0 30px rgba(124,58,237,.1);
+  transform:translateY(-3px);
+}
+.vol-emoji{font-size:2rem;margin-bottom:.8rem;}
+.vol-card h3{font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:.3rem;}
+.vol-card p{font-size:.85rem;color:var(--muted);}
+.vol-date{
+  font-family:var(--font-mono);font-size:.65rem;
+  color:var(--accent2);letter-spacing:.08em;margin-top:.5rem;
+}
+
+/* ========================================
+   CONTACT
+   ======================================== */
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;align-items:start;
+}
+.contact-info h3{
+  font-family:var(--font-head);font-size:1.6rem;font-weight:700;
+  letter-spacing:-.5px;margin-bottom:1rem;
+}
+.contact-info p{color:var(--muted);margin-bottom:2rem;font-size:.95rem;}
+.contact-items{display:flex;flex-direction:column;gap:1rem;margin-bottom:2.5rem;}
+.contact-item{
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem 1.2rem;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);transition:all .2s;
+}
+.contact-item:hover{border-color:rgba(0,216,255,.3);}
+.contact-item-icon{
+  width:38px;height:38px;border-radius:8px;
+  background:rgba(0,216,255,.08);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--accent);
+}
+.contact-item-text h4{font-size:.85rem;font-weight:600;margin-bottom:.1rem;}
+.contact-item-text p{font-family:var(--font-mono);font-size:.75rem;color:var(--muted);}
+.social-row{display:flex;gap:.75rem;flex-wrap:wrap;}
+.social-btn{
+  width:42px;height:42px;border-radius:10px;
+  background:var(--surface);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:1rem;
+  transition:all .2s;
+}
+.social-btn:hover{
+  background:rgba(0,216,255,.1);
+  border-color:rgba(0,216,255,.4);
+  color:var(--accent);transform:translateY(-2px);
+}
+.contact-form{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r2);padding:2.5rem;backdrop-filter:blur(8px);
+}
+.form-group{margin-bottom:1.2rem;}
+.form-label{
+  display:block;font-family:var(--font-mono);font-size:.72rem;
+  color:var(--muted);letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:.5rem;
+}
+.form-control{
+  width:100%;background:rgba(255,255,255,.04);
+  border:1px solid var(--border);border-radius:8px;
+  padding:.85rem 1rem;color:var(--text);
+  font-family:var(--font-body);font-size:.9rem;
+  transition:border-color .2s, background .2s;
+  outline:none;
+}
+.form-control:focus{
+  border-color:var(--accent);
+  background:rgba(0,216,255,.04);
+}
+.form-control::placeholder{color:var(--muted);}
+textarea.form-control{resize:vertical;min-height:130px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-success{
+  display:none;text-align:center;padding:2rem;
+  font-family:var(--font-head);font-size:1.1rem;color:var(--accent);
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+.footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  padding:3rem max(5vw,20px) 2rem;
+}
+.footer-inner{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1.5rem;
+}
+.footer-logo{
+  font-family:var(--font-head);font-size:1.5rem;font-weight:800;
+  letter-spacing:-.5px;
+}
+.footer-logo span{color:var(--accent);}
+.footer-copy{
+  font-family:var(--font-mono);font-size:.72rem;color:var(--muted);
+  letter-spacing:.05em;
+}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-links a{
+  font-family:var(--font-mono);font-size:.72rem;color:var(--muted);
+  transition:color .2s;
+}
+.footer-links a:hover{color:var(--accent);}
+
+/* ========================================
+   BACK TO TOP
+   ======================================== */
+.back-top{
+  position:fixed;bottom:2rem;right:2rem;z-index:50;
+  width:44px;height:44px;border-radius:10px;
+  background:var(--surface);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);font-size:.9rem;cursor:pointer;
+  opacity:0;pointer-events:none;transition:all .3s;
+}
+.back-top.visible{opacity:1;pointer-events:all;}
+.back-top:hover{background:rgba(0,216,255,.1);color:var(--accent);border-color:rgba(0,216,255,.4);}
+
+/* ========================================
+   GRADIENT DIVIDER
+   ======================================== */
+.divider{
+  height:1px;background:linear-gradient(to right, transparent, var(--border), transparent);
+  margin:0 max(5vw,20px);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr;}
+  .about-visual{display:flex;justify-content:center;}
+  .contact-grid{grid-template-columns:1fr;}
+  .project-featured{grid-column:span 1;}
+  .research-card{grid-template-columns:1fr;}
+  .research-num{font-size:2rem;min-width:unset;}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .projects-grid{grid-template-columns:1fr;}
+  .form-row{grid-template-columns:1fr;}
+  .hero-stats{gap:1.5rem;}
+}
+@media(max-width:480px){
+  .about-img-wrap{width:280px;height:320px;}
+}
+
+/* ========================================
+   GRADIENT BACKGROUNDS PER SECTION
+   ======================================== */
+.bg-grad-1{
+  background:linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+}
+.bg-grad-2{
+  background:linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+}
+</style>
 </head>
 <body>
-    <header class="header">
-        <div class="container nav-container">
-            <a href="#" class="logo">Anas<span>.</span></a>
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </header>
 
-    <section id="home" class="hero">
-        <div class="container hero-content">
-            <h1 class="fade-in">Anas Bilal Abdul Aziz</h1>
-            <p class="fade-in">Computer Science Senior</p>
-            <div class="hero-btns fade-in">
-                <a href="#projects" class="btn hero-btn">View My Work</a>
-                <a href="#contact" class="btn hero-btn secondary">Contact Me</a>
-            </div>
-        </div>
-        <a href="#about" class="scroll-down">
-            <i class="fas fa-chevron-down"></i>
-        </a>
-    </section>
+<!-- STARFIELD CANVAS -->
+<canvas id="starfield"></canvas>
 
-    <section id="about" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">About Me</h2>
-            <div class="about-content">
-                <div class="about-img fade-in">
-                    <img src="images/anas_img_portfolio.jpg" alt="Anas Abdul Aziz">
-                </div>
-                <div class="about-text fade-in">
-                    <h2>CS Senior at American University of Beirut</h2>
-                    <p>I am an innovative Computer Science Senior at the American University of Beirut with demonstrated expertise in full-stack development, database design, and problem-solving. I combine strong technical capabilities with leadership and communication skills to deliver successful collaborative projects.</p>
-                    <p>Passionate about leveraging technology to create impactful solutions, from web platforms to AI models, while consistently pursuing professional development.</p>
-                    <div class="about-info fade-in">
-                        <div class="info-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>anasabdulaziza.a.a@gmail.com</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-university"></i>
-                            <span>aba34@mail.aub.edu</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+961-70901513</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Beirut, Lebanon</span>
-                        </div>
-                    </div>
-                    <a href="#contact" class="btn fade-in">Get In Touch</a>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ==================== NAV ==================== -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">Anas<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="https://github.com/Anas-JUICE" target="_blank" class="nav-cta">GitHub ↗</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
 
-    <section id="skills" class="section" style="background-color: #f5f9fc;">
-        <div class="container">
-            <h2 class="section-title fade-in">My Skills</h2>
-            <div class="skills-container">
-                <div class="skill-category fade-in">
-                    <h3><i class="fas fa-code"></i> Programming</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">Java</span>
-                        <span class="skill-item">C++</span>
-                        <span class="skill-item">C</span>
-                        <span class="skill-item">Python</span>
-                        <span class="skill-item">SML</span>
-                    </div>
-                </div>
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" class="mob-link">About</a>
+  <a href="#skills" class="mob-link">Skills</a>
+  <a href="#projects" class="mob-link">Projects</a>
+  <a href="#research" class="mob-link">Research</a>
+  <a href="#experience" class="mob-link">Experience</a>
+  <a href="#contact" class="mob-link">Contact</a>
+</div>
 
-                <div class="skill-category fade-in">
-                    <h3><i class="fas fa-brain"></i> AI & Machine Learning</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">TensorFlow</span>
-                        <span class="skill-item">CNN/RNN/LSTM</span>
-                        <span class="skill-item">Q-Learning</span>
-                        <span class="skill-item">NLP</span>
-                        <span class="skill-item">Data Preprocessing</span>
-                    </div>
-                </div>
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="home">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-glow"></div>
 
-                <div class="skill-category fade-in">
-                    <h3><i class="fas fa-user-shield"></i> Cybersecurity</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">Metasploit</span>
-                        <span class="skill-item">Nessus & Hydra</span>
-                        <span class="skill-item">Burp Suite</span>
-                        <span class="skill-item">nmap</span>
-                        <span class="skill-item">SQLi & Sniffing</span>
-                    </div>
-                </div>
-
-                <div class="skill-category fade-in">
-                    <h3><i class="fas fa-globe"></i> Web & Database</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">React.js</span>
-                        <span class="skill-item">Django</span>
-                        <span class="skill-item">MySQL</span>
-                        <span class="skill-item">Relational Design</span>
-                        <span class="skill-item">HTML/CSS/JS</span>
-                    </div>
-                </div>
-
-                <div class="skill-category fade-in">
-                    <h3><i class="fas fa-tools"></i> Tools & Ops</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">Git & GitHub</span>
-                        <span class="skill-item">Jira</span>
-                        <span class="skill-item">Scrum/Agile</span>
-                        <span class="skill-item">Linux/SSH</span>
-                        <span class="skill-item">Apache</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">My Projects</h2>
-            <div class="projects-container">
-                
-                <div class="project-card fade-in">
-                    <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1519&q=80" alt="Waypoint Project">
-                    </div>
-                    <div class="project-content">
-                        <h3>Waypoint – Travel Guide</h3>
-                        <p>A personalized travel recommendation platform. Helps users discover ideal holiday destinations based on preferences using Agile methodology.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">React.js</span>
-                            <span class="project-tag">Django</span>
-                            <span class="project-tag">Scrum</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in">
-                    <div class="project-img">
-                        <img src="images/battleship_img.jpg" alt="Battleship Game">
-                    </div>
-                    <div class="project-content">
-                        <h3>Battleship Game</h3>
-                        <p>Two-player strategy game developed in C. Features a custom AI "Mega-Bot" opponent, rigorous testing, and detailed documentation.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">C</span>
-                            <span class="project-tag">Game AI</span>
-                            <span class="project-tag">Testing</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in">
-                    <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=1470&q=80" alt="Book Recommendation">
-                    </div>
-                    <div class="project-content">
-                        <h3>Book Recommendation Engine</h3>
-                        <p>An ML-based recommendation system using K-Nearest Neighbors (KNN), similarity metrics, and hyperparameter tuning.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">KNN</span>
-                            <span class="project-tag">Machine Learning</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                 <div class="project-card fade-in">
-                    <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1551103782-8ab07afd45c1?auto=format&fit=crop&w=1470&q=80" alt="Battleship Game">
-                    </div>
-                    <div class="project-content">
-                        <h3>Rock–Paper–Scissors AI</h3>
-                        <p>An adaptive gameplay agent utilizing Q-Learning reinforcement learning to predict and beat human player patterns.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Q-Learning</span>
-                            <span class="project-tag">Reinforcement Learning</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in">
-                    <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1470&q=80" alt="Music Streaming Database">
-                    </div>
-                    <div class="project-content">
-                        <h3>Music Streaming DB</h3>
-                        <p>Designed a normalized relational database with optimized structures for users, songs, artists, and playlists.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">MySQL</span>
-                            <span class="project-tag">Normalization</span>
-                            <span class="project-tag">SQL</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card fade-in">
-                    <div class="project-img">
-                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1470&q=80" alt="Medical Data">
-                    </div>
-                    <div class="project-content">
-                        <h3>Health Cost Predictor</h3>
-                        <p>A linear regression model trained and validated on real-world medical data to predict insurance costs with high accuracy.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Regression</span>
-                            <span class="project-tag">Data Analysis</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="project-link"><i class="fab fa-github"></i> Code</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section id="experience" class="section" style="background-color: #f5f9fc;">
-        <div class="container">
-            <h2 class="section-title fade-in">Work Experience</h2>
-            <div class="experience-container">
-                <div class="experience-item fade-in">
-                    <span class="experience-year">June–Sept 2023 & 2024</span>
-                    <h3 class="experience-title">Technical Support & Sales Associate</h3>
-                    <p class="experience-company">Click Once | Saida, Lebanon</p>
-                    <p>Provided technical support and troubleshooting for devices, advised on product choices, and performed phone/laptop repairs. Successfully helped raise customer satisfaction by 15% through dedicated service.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="education" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">Education</h2>
-            <div class="education-container">
-                <div class="education-card fade-in">
-                    <div class="education-icon">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <span class="education-year">2023 - 2026 (Expected)</span>
-                    <h3 class="education-degree">Bachelor of Science in Computer Science</h3>
-                    <p class="education-school">American University of Beirut</p>
-                    <p>Senior Standing</p>
-                </div>
-                <div class="education-card fade-in">
-                    <div class="education-icon">
-                        <i class="fas fa-school"></i>
-                    </div>
-                    <span class="education-year">2021 - 2023</span>
-                    <h3 class="education-degree">Lebanese Baccalaureate</h3>
-                    <p class="education-school">Iman High School, Saida</p>
-                    <p>Score: 17.222/20</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="certifications" class="section" style="background-color: #f5f9fc;">
-        <div class="container">
-            <h2 class="section-title fade-in">Certifications & Activities</h2>
-            <div class="skills-container"> <div class="skill-category fade-in">
-                    <h3><i class="fas fa-certificate"></i> Certifications</h3>
-                    <div class="skill-list" style="display:block;">
-                        <p>• Dean’s Honor List – AUB</p>
-                        <p>• Machine Learning with Python – FreeCodeCamp</p>
-                        <p>• Elements of AI – University of Helsinki</p>
-                        <p>• First Aid Workshop – Islamic Medical Association</p>
-                    </div>
-                </div>
-                <div class="skill-category fade-in">
-                    <h3><i class="fas fa-users"></i> Leadership & Activities</h3>
-                    <div class="skill-list" style="display:block;">
-                        <p>• <strong>AI Student Leader (RoboGeex):</strong> Developed mini-AI tools & assessed AI bias.</p>
-                        <p>• <strong>Community Outreach:</strong> Organized events for underprivileged populations.</p>
-                        <p>• <strong>Emergency Response:</strong> Trained in CPR, RES, and PLS techniques.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">Get In Touch</h2>
-            <div class="contact-container">
-                <div class="contact-info fade-in">
-                    <h3>Contact Information</h3>
-                    <div class="contact-info-item">
-                        <i class="fas fa-envelope"></i>
-                        <div class="contact-info-text">
-                            <h4>Email</h4>
-                            <p>anasabdulaziza.a.a@gmail.com</p>
-                            <p>aba34@mail.aub.edu</p>
-                        </div>
-                    </div>
-                    <div class="contact-info-item">
-                        <i class="fas fa-phone"></i>
-                        <div class="contact-info-text">
-                            <h4>Phone</h4>
-                            <p>+961-70901513</p>
-                        </div>
-                    </div>
-                    <div class="contact-info-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div class="contact-info-text">
-                            <h4>Location</h4>
-                            <p>Beirut, Lebanon</p>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form fade-in">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Subject" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control" placeholder="Your Message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container footer-content">
-            <div class="footer-logo">Anas<span>.</span></div>
-            <div class="social-links">
-                <a href="https://github.com/Anas-JUICE" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/anas-abdul-aziz-b5b968349" class="social-link" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                <a href="https://x.com/AnasA_A_A" class="social-link" target="_blank">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 512 512" fill="white">
-                      <path d="M461.2 24H360.5L255.6 178.6 147.1 24H0L194.8 278.5 8 488H111.5l107.5-142.4L376.5 488H512L316.5 232.9 499.8 24h-38.6z"/>
-                    </svg>
-                </a>                  
-                <a href="https://www.instagram.com/anas_abdul_azizz/" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
-            </div>                        
-            <p class="footer-text">&copy; 2025 Anas Abdul Aziz. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <div class="dark-mode">
-        <i class="fas fa-moon"></i>
+  <div class="hero-content">
+    <div class="hero-label reveal">
+      <span class="hero-label-dot"></span>
+      CS Senior · AUB · Lebanon
     </div>
 
-    <div class="back-to-top">
-        <i class="fas fa-arrow-up"></i>
+    <h1 class="hero-name reveal reveal-delay-1">
+      <span class="word-anas">Anas</span><br>
+      <span class="word-aa">Abdul Aziz</span>
+    </h1>
+
+    <div class="hero-typewriter reveal reveal-delay-2">
+      <span id="typewriter-text"></span><span class="cursor"></span>
     </div>
 
-    <script src="script.js"></script>
+    <p class="hero-desc reveal reveal-delay-3">
+      Building intelligent systems — from end-to-end ML pipelines and serverless cloud
+      architectures to full-stack platforms and academic research. Turning complexity into clarity.
+    </p>
+
+    <div class="hero-btns reveal reveal-delay-4">
+      <a href="#projects" class="btn btn-primary"><i class="fas fa-rocket"></i> View My Work</a>
+      <a href="#contact" class="btn btn-ghost"><i class="fas fa-paper-plane"></i> Get In Touch</a>
+      <a href="https://github.com/Anas-JUICE" target="_blank" class="btn btn-ghost"><i class="fab fa-github"></i> GitHub</a>
+    </div>
+
+    <div class="hero-stats reveal reveal-delay-5">
+      <div class="hero-stat">
+        <div class="hero-stat-n">10+</div>
+        <div class="hero-stat-l">Projects Built</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">8.0</div>
+        <div class="hero-stat-l">IELTS Band</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">2×</div>
+        <div class="hero-stat-l">Dean's Honor List</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-n">5+</div>
+        <div class="hero-stat-l">Tech Domains</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ==================== ABOUT ==================== -->
+<section class="section bg-grad-1" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div style="position:relative;display:inline-block;">
+          <div class="about-img-wrap">
+            <div class="about-img-placeholder">
+              <i class="fas fa-user-circle"></i>
+              <p>Replace with your photo</p>
+            </div>
+          </div>
+          <div class="about-badge">Merit Scholar</div>
+          <div class="about-corner">
+            <div class="about-corner-n">3.x</div>
+            <div class="about-corner-l">GPA<br>AUB</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-text">
+        <div class="section-badge reveal">About Me</div>
+        <h3 class="reveal reveal-delay-1">
+          CS Senior at the<br>American University<br>of Beirut
+        </h3>
+        <p class="reveal reveal-delay-2">
+          I'm a passionate Computer Science student with a broad skillset spanning <strong>machine learning</strong>,
+          <strong>cybersecurity</strong>, <strong>cloud computing</strong>, <strong>full-stack development</strong>,
+          and academic research. I thrive on building end-to-end systems that are technically rigorous and practically impactful.
+        </p>
+        <p class="reveal reveal-delay-2">
+          Recipient of the <strong>ULYP Merit Scholarship (Full Tuition)</strong> and consistently on the
+          <strong>Dean's Honor List</strong> at AUB. Currently conducting research on Transfer Learning techniques
+          with faculty members.
+        </p>
+
+        <div class="about-chips reveal reveal-delay-3">
+          <span class="chip">Full-Stack Dev</span>
+          <span class="chip">Machine Learning</span>
+          <span class="chip">Cloud / AWS</span>
+          <span class="chip">Cybersecurity</span>
+          <span class="chip">Academic Research</span>
+          <span class="chip">Agile / Scrum</span>
+        </div>
+
+        <div class="about-links reveal reveal-delay-4">
+          <a href="mailto:anasabdulaziza.a.a@gmail.com" class="about-link">
+            <i class="fas fa-envelope"></i> anasabdulaziza.a.a@gmail.com
+          </a>
+          <a href="tel:+96170901513" class="about-link">
+            <i class="fas fa-phone"></i> +961-70901513
+          </a>
+          <a href="https://linkedin.com/in/anas-abdul-aziz-b5b968349" target="_blank" class="about-link">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <a href="https://anas-juice.github.io/Anas_Portfolio" target="_blank" class="about-link">
+            <i class="fas fa-globe"></i> Old Portfolio
+          </a>
+          <span class="about-link">
+            <i class="fas fa-map-marker-alt"></i> Saida, South Lebanon
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ==================== SKILLS ==================== -->
+<section class="section" id="skills">
+  <div class="section-inner">
+    <div class="section-badge reveal">Technical Arsenal</div>
+    <h2 class="section-title reveal reveal-delay-1">Skills &amp; <em>Expertise</em></h2>
+    <p class="section-sub reveal reveal-delay-2">Technologies and tools I work with across multiple domains.</p>
+
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-card-icon"><i class="fas fa-code"></i></div>
+        <h3>Programming Languages</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">C</span>
+          <span class="skill-tag">SML</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal reveal-delay-1">
+        <div class="skill-card-icon"><i class="fas fa-brain"></i></div>
+        <h3>Machine Learning &amp; AI</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">Scikit-learn</span>
+          <span class="skill-tag">XGBoost</span>
+          <span class="skill-tag">Random Forest</span>
+          <span class="skill-tag">CNN / RNN / LSTM</span>
+          <span class="skill-tag">NLP</span>
+          <span class="skill-tag">Q-Learning</span>
+          <span class="skill-tag">EasyOCR</span>
+          <span class="skill-tag">Monte Carlo</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal reveal-delay-2">
+        <div class="skill-card-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3>Cybersecurity</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Metasploit</span>
+          <span class="skill-tag">Nessus</span>
+          <span class="skill-tag">Hydra</span>
+          <span class="skill-tag">Burp Suite</span>
+          <span class="skill-tag">SQLi</span>
+          <span class="skill-tag">Sniffing</span>
+          <span class="skill-tag">fail2ban</span>
+          <span class="skill-tag">Prometheus</span>
+          <span class="skill-tag">Grafana</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal reveal-delay-1">
+        <div class="skill-card-icon"><i class="fas fa-globe"></i></div>
+        <h3>Web &amp; Databases</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">React.js</span>
+          <span class="skill-tag">Django</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">HTML / CSS</span>
+          <span class="skill-tag">MySQL</span>
+          <span class="skill-tag">Streamlit</span>
+          <span class="skill-tag">Relational Design</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal reveal-delay-2">
+        <div class="skill-card-icon"><i class="fab fa-aws"></i></div>
+        <h3>Cloud &amp; DevOps</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">AWS Lambda</span>
+          <span class="skill-tag">SageMaker</span>
+          <span class="skill-tag">API Gateway</span>
+          <span class="skill-tag">S3</span>
+          <span class="skill-tag">DynamoDB</span>
+          <span class="skill-tag">CloudWatch</span>
+          <span class="skill-tag">Serverless</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal reveal-delay-3">
+        <div class="skill-card-icon"><i class="fas fa-tools"></i></div>
+        <h3>Tools &amp; Process</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Git / GitHub</span>
+          <span class="skill-tag">Jira</span>
+          <span class="skill-tag">Scrum / Agile</span>
+          <span class="skill-tag neutral">SSH / Apache</span>
+          <span class="skill-tag neutral">Linux</span>
+          <span class="skill-tag neutral">Testing</span>
+          <span class="skill-tag neutral">Documentation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ==================== PROJECTS ==================== -->
+<section class="section section-alt" id="projects">
+  <div class="section-inner">
+    <div class="section-badge reveal">Portfolio</div>
+    <h2 class="section-title reveal reveal-delay-1">Featured <em>Projects</em></h2>
+    <p class="section-sub reveal reveal-delay-2">A selection of work spanning ML, web, systems, and security.</p>
+
+    <div class="projects-filter reveal reveal-delay-3">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="ml">Machine Learning</button>
+      <button class="filter-btn" data-filter="web">Web</button>
+      <button class="filter-btn" data-filter="systems">Systems</button>
+      <button class="filter-btn" data-filter="security">Security</button>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- FIFA Predictor (featured) -->
+      <div class="project-card project-featured reveal" data-cat="ml">
+        <div class="project-banner" style="background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);">
+          ⚽
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-type">🏆 Final Year Project</span>
+            <span class="project-year">2025–2026</span>
+          </div>
+          <h3>FIFA World Cup 2026 Outcome Predictor</h3>
+          <p>End-to-end ML pipeline comparing Logistic Regression, Random Forest, and XGBoost on historical international match data. Selected best model using a fairness-aware rule and integrated it into a Monte Carlo 48-team tournament simulator, deployed as a Streamlit app.</p>
+          <div class="project-techs">
+            <span class="project-tech">Python</span>
+            <span class="project-tech">XGBoost</span>
+            <span class="project-tech">Monte Carlo</span>
+            <span class="project-tech">Streamlit</span>
+            <span class="project-tech">Scikit-learn</span>
+          </div>
+          <div class="project-footer">
+            <a href="https://github.com/Anas-JUICE" target="_blank" class="project-link-btn"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- License Plate OCR -->
+      <div class="project-card reveal reveal-delay-1" data-cat="ml">
+        <div class="project-banner" style="background:linear-gradient(135deg,#1a1a2e,#16213e);">
+          🔍
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-type">Computer Vision</span>
+            <span class="project-year">2024</span>
+          </div>
+          <h3>License Plate Detection &amp; OCR</h3>
+          <p>Compared SSD, RetinaNet, and YOLOv8n for vehicle plate localization. Built a Streamlit dashboard with EasyOCR for end-to-end detection and text reading.</p>
+          <div class="project-techs">
+            <span class="project-tech">YOLOv8n</span>
+            <span class="project-tech">EasyOCR</span>
+            <span class="project-tech">Streamlit</span>
+            <span class="project-tech">Python</span>
+          </div>
+          <div class="project-footer">
+            <a href="https://github.com/Anas-JUICE" target="_blank" class="project-link-btn"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Supply Chain AWS -->
+      <div class="project-card reveal reveal-delay-2" data-cat="ml">
+        <div class="project-banner" style="background:linear-gradient(135deg,#0d1b2a,#1b3a4b);">
+          ☁️
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-type">Cloud / ML Pipeline</span>
+            <span class="project-year">2024</span>
+          </div>
+          <h3>Supply Chain Demand Forecasting</h3>
+          <p>Serverless ML inference pipeline on AWS — API Gateway → Lambda → SageMaker → S3 → DynamoDB → CloudWatch — forecasting per-SKU retail demand from historical sales data.</p>
+          <div class="project-techs">
+            <span class="project-tech">AWS</span>
+            <span class="project-tech">Lambda</span>
+            <span class="project-tech">SageMaker</span>
+            <span class="project-tech">Serverless</span>
+          </div>
+          <div class="project-footer">
+            <a href="https://github.com/Anas-JUICE" target="_blank" class="project-link-btn"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diabetes -->
+      <div class="project-card reveal" data-cat="ml">
+        <div class="project-banner" style="background:linear-gradient(135deg,#1a0533,#3d0066);">
+          🩺
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-type">Healthcare ML</span>
+            <span class="project-year">2024</span>
+          </div>
+          <h3>Diabetes Risk Screening</h3>
+          <p>Interpretable multinomial logistic regression on NHANES data predicting HbA1c risk classes. Optimized threshold for high recall with secondary linear regression analysis.</p>
+          <div class="project-techs">
+            <span class="project-tech">Python</span>
+            <span class="project-tech">Logistic Regression</span>
+            <span class="project-tech">NHANES Data</span>
+          </div>
+          <div class="project-footer">
+            <a href="https://github.com/Anas-JUICE" target="_blank" class="project-link-btn"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Waypoint -->
+      <div class="project-card reveal reveal-delay-1" data-cat="web">
+        <div class="project-banner" style="background:linear-gradient(135deg,#0a2342,#1a4a6b);">
+          🌍
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-type">Full-Stack Web</span>
+            <span class="project-year">2023–2024</span>
+          </div>
+          <h3>Waypoint — Travel Guide Platform</h3>
+          <p>Full-stack travel recommendation platform. Built with React.js + Django using Agile/Scrum methodology, with performance optimization and comprehensive testing.</p>
+          <div class="project-techs">
+            <span class="project-tech">React.js</span>
+            <span class="project-tech">Django</span>
+            <span class="project-tech">MySQL</span>
+            <span class="project-tech">Scrum</span>
+          </div>
+          <div class="project-footer">
+            <a href="https://github.com/Anas-JUICE" target="_blank" class="project-link-btn"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- xv6 OS -->
+      <div class="project-card reveal reveal-delay-2" data-cat="systems">
+        <div class="project-banner" style="background:linear-gradient(135deg,#1a1a1a,#2d2d2d);">
+          💻
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-type">Operating Systems</span>
+            <span class="project-year">2024</span>
+          </div>
+          <h3>MIT xv6 OS Extension</h3>
+          <p>Extended the Unix-like xv6 teaching OS — added system calls, user programs, file/directory commands, kernel threads, and a custom scheduler.</p>
+          <div class="project-techs">
+            <span class="project-tech">C</span>
+            <span class="project-tech">Unix</span>
+            <span class="project-tech">Kernel</span>
+            <span class="project-tech">Threads</span>
+          </div>
+          <div class="project-footer">
+            <a href="https://github.com/Anas-JUICE" target="_blank" class="project-link-btn"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cyber Lab -->
+      <div class="project-card reveal" data-cat="security">
+        <div class="project-banner" style="background:linear-gradient(135deg,#0d0d0d,#1a0000);">
+          🛡️
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-type">Cybersecurity Lab</span>
+            <span class="project-year">2024</span>
+          </div>
+          <h3>Cyber Lab — Attacker/Defender/Auditor</h3>
+          <p>3-VM attacker–defender–auditor setup. Hardened systems, configured real-time monitoring with Prometheus + Grafana, and handled live simulated cyberattacks.</p>
+          <div class="project-techs">
+            <span class="project-tech">Metasploit</span>
+            <span class="project-tech">fail2ban</span>
+            <span class="project-tech">Prometheus</span>
+            <span class="project-tech">Grafana</span>
+          </div>
+          <div class="project-footer">
+            <a href="https://github.com/Anas-JUICE" target="_blank" class="project-link-btn"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Battleship -->
+      <div class="project-card reveal reveal-delay-1" data-cat="systems">
+        <div class="project-banner" style="background:linear-gradient(135deg,#002244,#003366);">
+          🚢
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-type">Game AI</span>
+            <span class="project-year">2023</span>
+          </div>
+          <h3>Battleship — Sea Battle</h3>
+          <p>Two-player strategy game in C featuring a custom AI "Mega-Bot" opponent. Included full documentation, rigorous testing, and an intelligent targeting system.</p>
+          <div class="project-techs">
+            <span class="project-tech">C</span>
+            <span class="project-tech">Game AI</span>
+            <span class="project-tech">Algorithms</span>
+          </div>
+          <div class="project-footer">
+            <a href="https://github.com/Anas-JUICE" target="_blank" class="project-link-btn"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RPS AI -->
+      <div class="project-card reveal reveal-delay-2" data-cat="ml">
+        <div class="project-banner" style="background:linear-gradient(135deg,#0f3d0f,#1a6b1a);">
+          ✊
+        </div>
+        <div class="project-body">
+          <div class="project-meta">
+            <span class="project-type">Reinforcement Learning</span>
+            <span class="project-year">2023</span>
+          </div>
+          <h3>Rock–Paper–Scissors AI</h3>
+          <p>Adaptive gameplay agent using Q-Learning reinforcement learning to predict and beat human player patterns through strategic state tracking.</p>
+          <div class="project-techs">
+            <span class="project-tech">Python</span>
+            <span class="project-tech">Q-Learning</span>
+            <span class="project-tech">RL</span>
+          </div>
+          <div class="project-footer">
+            <a href="https://github.com/Anas-JUICE" target="_blank" class="project-link-btn"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ==================== RESEARCH ==================== -->
+<section class="section" id="research">
+  <div class="section-inner">
+    <div class="section-badge reveal">Academia</div>
+    <h2 class="section-title reveal reveal-delay-1">Research &amp; <em>Publications</em></h2>
+    <p class="section-sub reveal reveal-delay-2">Active contributions to academic research alongside faculty members at AUB.</p>
+
+    <div class="research-list">
+      <div class="research-card reveal">
+        <div class="research-num">01</div>
+        <div class="research-info">
+          <div class="research-date">Jan – May 2026</div>
+          <h3>Transfer Learning in Machine Learning</h3>
+          <p>Research with Prof. Mohamed Kobeissi and Prof. Hasanin Harkous on transfer learning techniques and their practical applications in deep learning. Exploring how pre-trained models generalize across domains and tasks.</p>
+          <div class="research-tags">
+            <span class="skill-tag">Transfer Learning</span>
+            <span class="skill-tag">Deep Learning</span>
+            <span class="skill-tag">Neural Networks</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="research-card reveal reveal-delay-1">
+        <div class="research-num">02</div>
+        <div class="research-info">
+          <div class="research-date">Aug – Dec 2025</div>
+          <h3>CloudSim VM Allocation Study</h3>
+          <p>Undergraduate research with Prof. Mohamad Zalghout. Simulated cloud environments using CloudSim to study VM allocation policies and scheduling strategies, analyzing performance trade-offs in resource-constrained environments.</p>
+          <div class="research-tags">
+            <span class="skill-tag">CloudSim</span>
+            <span class="skill-tag">Cloud Computing</span>
+            <span class="skill-tag">VM Scheduling</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ==================== EXPERIENCE ==================== -->
+<section class="section section-alt" id="experience">
+  <div class="section-inner">
+    <div class="section-badge reveal">Career</div>
+    <h2 class="section-title reveal reveal-delay-1">Experience &amp; <em>Education</em></h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-top:3rem;">
+
+      <div>
+        <h3 style="font-family:var(--font-mono);font-size:.75rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:2rem;" class="reveal">Work Experience</h3>
+        <div class="timeline">
+          <div class="timeline-item reveal">
+            <div class="timeline-date">Jun–Sep, 2021–2025</div>
+            <h3>Technical Support &amp; Sales Associate</h3>
+            <div class="timeline-org">Click Once · Saida, Lebanon</div>
+            <p>Provided technical support and troubleshooting for devices. Performed phone and laptop repairs. Advised customers on product selection and contributed to consistently improved customer satisfaction year over year.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="font-family:var(--font-mono);font-size:.75rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:2rem;" class="reveal">Education</h3>
+        <div class="timeline">
+          <div class="timeline-item reveal reveal-delay-1">
+            <div class="timeline-date">2023 – Expected 2026</div>
+            <h3>B.Sc. Computer Science</h3>
+            <div class="timeline-org">American University of Beirut · Beirut, Lebanon</div>
+            <p>Senior standing. Active research contributor. Participated in tech competitions and campus initiatives.</p>
+            <div class="timeline-award"><i class="fas fa-star"></i> ULYP Merit Scholarship — Full Tuition</div>
+            <div class="timeline-award" style="margin-top:.3rem;"><i class="fas fa-award"></i> Dean's Honor List</div>
+          </div>
+
+          <div class="timeline-item reveal reveal-delay-2">
+            <div class="timeline-date">2021 – 2023</div>
+            <h3>Lebanese Baccalaureate</h3>
+            <div class="timeline-org">Iman High School · Saida, Lebanon</div>
+            <p>Score: 17.222 / 20</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ==================== CERTIFICATIONS ==================== -->
+<section class="section" id="certifications">
+  <div class="section-inner">
+    <div class="section-badge reveal">Achievements</div>
+    <h2 class="section-title reveal reveal-delay-1">Certs &amp; <em>Recognition</em></h2>
+    <p class="section-sub reveal reveal-delay-2">Formal recognitions, certifications, and languages.</p>
+
+    <div class="certs-grid">
+      <div class="cert-card reveal">
+        <div class="cert-icon"><i class="fas fa-medal"></i></div>
+        <div class="cert-info">
+          <h4>Dean's Honor List</h4>
+          <p>American University of Beirut</p>
+        </div>
+      </div>
+      <div class="cert-card reveal reveal-delay-1">
+        <div class="cert-icon"><i class="fas fa-award"></i></div>
+        <div class="cert-info">
+          <h4>IELTS Academic — Band 8.0</h4>
+          <p>2025 · C1 Level English</p>
+        </div>
+      </div>
+      <div class="cert-card reveal reveal-delay-2">
+        <div class="cert-icon"><i class="fab fa-python"></i></div>
+        <div class="cert-info">
+          <h4>Machine Learning with Python</h4>
+          <p>FreeCodeCamp Developer Certification</p>
+        </div>
+      </div>
+      <div class="cert-card reveal reveal-delay-3">
+        <div class="cert-icon"><i class="fas fa-robot"></i></div>
+        <div class="cert-info">
+          <h4>Elements of AI</h4>
+          <p>University of Helsinki</p>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon"><i class="fas fa-heart"></i></div>
+        <div class="cert-info">
+          <h4>First Aid Workshop</h4>
+          <p>Emergency Response Training</p>
+        </div>
+      </div>
+      <div class="cert-card reveal reveal-delay-1">
+        <div class="cert-icon"><i class="fas fa-language"></i></div>
+        <div class="cert-info">
+          <h4>Languages</h4>
+          <p>Arabic (Native) · English (Fluent) · Spanish (Elementary)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ==================== VOLUNTEERING ==================== -->
+<section class="section section-alt" id="volunteering">
+  <div class="section-inner">
+    <div class="section-badge reveal">Community</div>
+    <h2 class="section-title reveal reveal-delay-1">Giving <em>Back</em></h2>
+    <p class="section-sub reveal reveal-delay-2">Community service and volunteer work that defines who I am beyond code.</p>
+
+    <div class="vol-grid">
+      <div class="vol-card reveal">
+        <div class="vol-emoji">🍽️</div>
+        <h3>Feed the Need (FTN)</h3>
+        <p>Helped prepare and distribute meals during outreach initiatives and wartime relief efforts.</p>
+        <div class="vol-date">Jan – Mar 2026</div>
+      </div>
+      <div class="vol-card reveal reveal-delay-1">
+        <div class="vol-emoji">🏠</div>
+        <h3>Offre Joie</h3>
+        <p>Assisted displaced people during wartime — providing food, shelter support, and activities for children.</p>
+        <div class="vol-date">Sep – Dec 2024</div>
+      </div>
+      <div class="vol-card reveal reveal-delay-2">
+        <div class="vol-emoji">📚</div>
+        <h3>Haven</h3>
+        <p>Volunteered supporting ethics education programs and community-building initiatives.</p>
+        <div class="vol-date">Sep – Dec 2023</div>
+      </div>
+      <div class="vol-card reveal reveal-delay-3">
+        <div class="vol-emoji">🤖</div>
+        <h3>AI Student Leaders</h3>
+        <p>Built a mini-AI tool, explored AI concepts, and participated in Training of Trainers (ToT) sessions with peers.</p>
+        <div class="vol-date">Aug 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ==================== CONTACT ==================== -->
+<section class="section" id="contact">
+  <div class="section-inner">
+    <div class="section-badge reveal">Let's Connect</div>
+    <h2 class="section-title reveal reveal-delay-1">Get In <em>Touch</em></h2>
+
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info">
+          <h3 class="reveal">Open to opportunities,<br>collaborations, and research.</h3>
+          <p class="reveal reveal-delay-1">Whether you're looking to hire, collaborate on a project, or just want to talk tech — my inbox is always open.</p>
+        </div>
+
+        <div class="contact-items">
+          <a href="mailto:anasabdulaziza.a.a@gmail.com" class="contact-item reveal">
+            <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
+            <div class="contact-item-text">
+              <h4>Email</h4>
+              <p>anasabdulaziza.a.a@gmail.com</p>
+            </div>
+          </a>
+          <a href="mailto:aba34@mail.aub.edu" class="contact-item reveal reveal-delay-1">
+            <div class="contact-item-icon"><i class="fas fa-university"></i></div>
+            <div class="contact-item-text">
+              <h4>University Email</h4>
+              <p>aba34@mail.aub.edu</p>
+            </div>
+          </a>
+          <a href="tel:+96170901513" class="contact-item reveal reveal-delay-2">
+            <div class="contact-item-icon"><i class="fas fa-phone"></i></div>
+            <div class="contact-item-text">
+              <h4>Phone</h4>
+              <p>+961-70901513</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="social-row reveal reveal-delay-3">
+          <a href="https://github.com/Anas-JUICE" target="_blank" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://linkedin.com/in/anas-abdul-aziz-b5b968349" target="_blank" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://x.com/AnasA_A_A" target="_blank" class="social-btn" title="X (Twitter)">
+            <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 512 512" fill="currentColor"><path d="M461.2 24H360.5L255.6 178.6 147.1 24H0L194.8 278.5 8 488H111.5l107.5-142.4L376.5 488H512L316.5 232.9 499.8 24h-38.6z"/></svg>
+          </a>
+          <a href="https://instagram.com/anas_abdul_azizz/" target="_blank" class="social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <div class="contact-form reveal reveal-delay-2">
+        <div id="contactSuccess" class="form-success">
+          <i class="fas fa-check-circle" style="font-size:2rem;display:block;margin-bottom:.5rem;"></i>
+          Message sent! I'll get back to you soon.
+        </div>
+        <div id="contactFormWrap">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-control" id="cName" placeholder="Your name">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" id="cEmail" placeholder="your@email.com">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input type="text" class="form-control" id="cSubject" placeholder="What's this about?">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-control" id="cMessage" placeholder="Tell me more…"></textarea>
+          </div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="sendMessage()">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Anas<span>.</span></div>
+    <p class="footer-copy" id="footerYear"></p>
+    <div class="footer-links">
+      <a href="#home">Top</a>
+      <a href="#projects">Work</a>
+      <a href="#contact">Contact</a>
+      <a href="https://github.com/Anas-JUICE" target="_blank">GitHub ↗</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button class="back-top" id="backTop" aria-label="Back to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+/* ---- STARFIELD ---- */
+(function(){
+  const canvas = document.getElementById('starfield');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  function initStars(){
+    stars = [];
+    for(let i=0;i<120;i++){
+      stars.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        r: Math.random()*1.2+.2,
+        o: Math.random()*.7+.1,
+        s: Math.random()*.3+.05,
+      });
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    stars.forEach(s=>{
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(0,216,255,${s.o})`;
+      ctx.fill();
+      s.y -= s.s;
+      if(s.y < -2){ s.y = canvas.height; s.x = Math.random()*canvas.width; }
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',()=>{resize();initStars();});
+  resize(); initStars(); draw();
+})();
+
+/* ---- TYPEWRITER ---- */
+(function(){
+  const roles = [
+    'ML Engineer',
+    'Full-Stack Developer',
+    'Cloud Architect',
+    'Cybersecurity Enthusiast',
+    'AI Researcher',
+    'Problem Solver',
+  ];
+  let ri = 0, ci = 0, deleting = false;
+  const el = document.getElementById('typewriter-text');
+  function tick(){
+    const word = roles[ri];
+    if(!deleting){
+      el.textContent = word.slice(0,++ci);
+      if(ci === word.length){ deleting = true; return setTimeout(tick, 1800); }
+      setTimeout(tick, 75);
+    } else {
+      el.textContent = word.slice(0,--ci);
+      if(ci === 0){ deleting = false; ri = (ri+1)%roles.length; return setTimeout(tick, 400); }
+      setTimeout(tick, 40);
+    }
+  }
+  setTimeout(tick, 800);
+})();
+
+/* ---- SCROLL REVEAL ---- */
+(function(){
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  },{threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  // Also reveal hero items immediately
+  setTimeout(()=>{
+    document.querySelectorAll('.hero .reveal').forEach(el=>el.classList.add('visible'));
+  },100);
+})();
+
+/* ---- NAV SCROLL ---- */
+window.addEventListener('scroll',()=>{
+  const nav = document.getElementById('nav');
+  const back = document.getElementById('backTop');
+  if(window.scrollY>50) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+  if(window.scrollY>400) back.classList.add('visible');
+  else back.classList.remove('visible');
+});
+
+/* ---- BACK TO TOP ---- */
+document.getElementById('backTop').addEventListener('click',()=>{
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+/* ---- HAMBURGER / MOBILE NAV ---- */
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+hamburger.addEventListener('click',()=>{
+  hamburger.classList.toggle('active');
+  mobileNav.classList.toggle('open');
+  document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+});
+document.querySelectorAll('.mob-link').forEach(link=>{
+  link.addEventListener('click',()=>{
+    hamburger.classList.remove('active');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow='';
+  });
+});
+
+/* ---- SMOOTH SCROLL for anchor links ---- */
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+  anchor.addEventListener('click',function(e){
+    const href = this.getAttribute('href');
+    if(href==='#') return;
+    const target = document.querySelector(href);
+    if(target){
+      e.preventDefault();
+      const y = target.getBoundingClientRect().top + window.pageYOffset - 70;
+      window.scrollTo({top:y,behavior:'smooth'});
+    }
+  });
+});
+
+/* ---- PROJECT FILTER ---- */
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+    const filter = this.dataset.filter;
+    document.querySelectorAll('.project-card').forEach(card=>{
+      const cat = card.dataset.cat;
+      if(filter==='all' || cat===filter){
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+});
+
+/* ---- CONTACT FORM ---- */
+function sendMessage(){
+  const name = document.getElementById('cName').value.trim();
+  const email = document.getElementById('cEmail').value.trim();
+  const subject = document.getElementById('cSubject').value.trim();
+  const message = document.getElementById('cMessage').value.trim();
+  if(!name||!email||!message){ alert('Please fill in all required fields.'); return; }
+  // Demo: just show success state
+  document.getElementById('contactFormWrap').style.display='none';
+  document.getElementById('contactSuccess').style.display='block';
+}
+
+/* ---- FOOTER YEAR ---- */
+document.getElementById('footerYear').textContent =
+  `© ${new Date().getFullYear()} Anas Abdul Aziz. All rights reserved.`;
+</script>
 </body>
 </html>
