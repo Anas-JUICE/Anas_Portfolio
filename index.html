@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Anas Abdul Aziz — CS Engineer & Researcher</title>
+<meta name="description" content="Portfolio of Anas Abdul Aziz — Computer Science graduate of the American University of Beirut specializing in machine learning, full-stack development, cloud computing, and cybersecurity.">
+<meta property="og:title" content="Anas Abdul Aziz — CS Engineer & Researcher">
+<meta property="og:description" content="AUB Computer Science graduate building ML pipelines, cloud systems, and full-stack platforms.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -452,6 +456,14 @@ img{display:block;max-width:100%;}
   content:'';position:absolute;inset:0;
   background:linear-gradient(to bottom, transparent 40%, rgba(7,11,20,.8) 100%);
 }
+.project-banner::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,.08) 45%, transparent 60%);
+  background-size:250% 250%;background-position:130% 130%;
+  transition:background-position .6s ease;
+  pointer-events:none;
+}
+.project-card:hover .project-banner::before{background-position:-30% -30%;}
 .project-meta{
   display:flex;align-items:center;justify-content:space-between;
   margin-bottom:1rem;
@@ -810,7 +822,7 @@ textarea.form-control{resize:vertical;min-height:130px;}
   <div class="hero-content">
     <div class="hero-label reveal">
       <span class="hero-label-dot"></span>
-      CS Senior · AUB · Lebanon
+      CS Graduate · AUB · Lebanon
     </div>
 
     <h1 class="hero-name reveal reveal-delay-1">
@@ -835,7 +847,7 @@ textarea.form-control{resize:vertical;min-height:130px;}
 
     <div class="hero-stats reveal reveal-delay-5">
       <div class="hero-stat">
-        <div class="hero-stat-n">10+</div>
+        <div class="hero-stat-n">15+</div>
         <div class="hero-stat-l">Projects Built</div>
       </div>
       <div class="hero-stat">
@@ -870,8 +882,8 @@ textarea.form-control{resize:vertical;min-height:130px;}
           </div>
           <div class="about-badge">Merit Scholar</div>
           <div class="about-corner">
-            <div class="about-corner-n">3.x</div>
-            <div class="about-corner-l">GPA<br>AUB</div>
+            <div class="about-corner-n">3.72</div>
+            <div class="about-corner-l">GPA<br>AUB Distinction</div>
           </div>
         </div>
       </div>
@@ -879,17 +891,17 @@ textarea.form-control{resize:vertical;min-height:130px;}
       <div class="about-text">
         <div class="section-badge reveal">About Me</div>
         <h3 class="reveal reveal-delay-1">
-          CS Senior at the<br>American University<br>of Beirut
+          CS Graduate of the<br>American University<br>of Beirut
         </h3>
         <p class="reveal reveal-delay-2">
-          I'm a passionate Computer Science student with a broad skillset spanning <strong>machine learning</strong>,
+          I'm a Computer Science graduate with a broad skillset spanning <strong>machine learning</strong>,
           <strong>cybersecurity</strong>, <strong>cloud computing</strong>, <strong>full-stack development</strong>,
           and academic research. I thrive on building end-to-end systems that are technically rigorous and practically impactful.
         </p>
         <p class="reveal reveal-delay-2">
-          Recipient of the <strong>ULYP Merit Scholarship (Full Tuition)</strong> and consistently on the
-          <strong>Dean's Honor List</strong> at AUB. Currently conducting research on Transfer Learning techniques
-          with faculty members.
+          Recipient of the <strong>ULYP Merit Scholarship (Full Tuition)</strong> and graduated with <strong>Distinction</strong>,
+          twice named to the <strong>Dean's Honor List</strong> at AUB. Active contributor to ongoing faculty research on
+          transfer learning techniques.
         </p>
 
         <div class="about-chips reveal reveal-delay-3">
@@ -902,8 +914,8 @@ textarea.form-control{resize:vertical;min-height:130px;}
         </div>
 
         <div class="about-links reveal reveal-delay-4">
-          <a href="mailto:anasabdulaziza.a.a@gmail.com" class="about-link">
-            <i class="fas fa-envelope"></i> anasabdulaziza.a.a@gmail.com
+          <a href="mailto:anas4bdul4ziz@gmail.com" class="about-link">
+            <i class="fas fa-envelope"></i> anas4bdul4ziz@gmail.com
           </a>
           <a href="tel:+96170901513" class="about-link">
             <i class="fas fa-phone"></i> +961-70901513
@@ -953,6 +965,7 @@ textarea.form-control{resize:vertical;min-height:130px;}
           <span class="skill-tag">Scikit-learn</span>
           <span class="skill-tag">XGBoost</span>
           <span class="skill-tag">Random Forest</span>
+          <span class="skill-tag">Logistic Regression</span>
           <span class="skill-tag">CNN / RNN / LSTM</span>
           <span class="skill-tag">NLP</span>
           <span class="skill-tag">Q-Learning</span>
@@ -1256,6 +1269,17 @@ textarea.form-control{resize:vertical;min-height:130px;}
       </div>
 
     </div>
+
+    <div class="reveal reveal-delay-3" style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--border);">
+      <h3 style="font-family:var(--font-mono);font-size:.75rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1rem;">Other Projects</h3>
+      <div class="about-chips">
+        <span class="chip">Book Recommendation Engine</span>
+        <span class="chip">Health Cost Predictor</span>
+        <span class="chip">Spam Classifier</span>
+        <span class="chip">Cat / Dog Classifier</span>
+        <span class="chip">Streaming Database</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1314,7 +1338,7 @@ textarea.form-control{resize:vertical;min-height:130px;}
         <h3 style="font-family:var(--font-mono);font-size:.75rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:2rem;" class="reveal">Work Experience</h3>
         <div class="timeline">
           <div class="timeline-item reveal">
-            <div class="timeline-date">Jun–Sep, 2021–2025</div>
+            <div class="timeline-date">2020–2023, Summers 2024–2026</div>
             <h3>Technical Support &amp; Sales Associate</h3>
             <div class="timeline-org">Click Once · Saida, Lebanon</div>
             <p>Provided technical support and troubleshooting for devices. Performed phone and laptop repairs. Advised customers on product selection and contributed to consistently improved customer satisfaction year over year.</p>
@@ -1326,12 +1350,12 @@ textarea.form-control{resize:vertical;min-height:130px;}
         <h3 style="font-family:var(--font-mono);font-size:.75rem;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:2rem;" class="reveal">Education</h3>
         <div class="timeline">
           <div class="timeline-item reveal reveal-delay-1">
-            <div class="timeline-date">2023 – Expected 2026</div>
+            <div class="timeline-date">2023 – 2026</div>
             <h3>B.Sc. Computer Science</h3>
             <div class="timeline-org">American University of Beirut · Beirut, Lebanon</div>
-            <p>Senior standing. Active research contributor. Participated in tech competitions and campus initiatives.</p>
+            <p>Graduated with Distinction · GPA 3.72 (Final 60 Credits). Active research contributor. Participated in tech competitions and campus initiatives.</p>
             <div class="timeline-award"><i class="fas fa-star"></i> ULYP Merit Scholarship — Full Tuition</div>
-            <div class="timeline-award" style="margin-top:.3rem;"><i class="fas fa-award"></i> Dean's Honor List</div>
+            <div class="timeline-award" style="margin-top:.3rem;"><i class="fas fa-award"></i> Dean's Honor List ×2</div>
           </div>
 
           <div class="timeline-item reveal reveal-delay-2">
@@ -1358,20 +1382,27 @@ textarea.form-control{resize:vertical;min-height:130px;}
 
     <div class="certs-grid">
       <div class="cert-card reveal">
-        <div class="cert-icon"><i class="fas fa-medal"></i></div>
+        <div class="cert-icon"><i class="fas fa-graduation-cap"></i></div>
         <div class="cert-info">
-          <h4>Dean's Honor List</h4>
-          <p>American University of Beirut</p>
+          <h4>Graduated with Distinction</h4>
+          <p>American University of Beirut · GPA 3.72</p>
         </div>
       </div>
       <div class="cert-card reveal reveal-delay-1">
+        <div class="cert-icon"><i class="fas fa-medal"></i></div>
+        <div class="cert-info">
+          <h4>Dean's Honor List ×2</h4>
+          <p>American University of Beirut</p>
+        </div>
+      </div>
+      <div class="cert-card reveal reveal-delay-2">
         <div class="cert-icon"><i class="fas fa-award"></i></div>
         <div class="cert-info">
           <h4>IELTS Academic — Band 8.0</h4>
           <p>2025 · C1 Level English</p>
         </div>
       </div>
-      <div class="cert-card reveal reveal-delay-2">
+      <div class="cert-card reveal reveal-delay-3">
         <div class="cert-icon"><i class="fab fa-python"></i></div>
         <div class="cert-info">
           <h4>Machine Learning with Python</h4>
@@ -1457,11 +1488,11 @@ textarea.form-control{resize:vertical;min-height:130px;}
         </div>
 
         <div class="contact-items">
-          <a href="mailto:anasabdulaziza.a.a@gmail.com" class="contact-item reveal">
+          <a href="mailto:anas4bdul4ziz@gmail.com" class="contact-item reveal">
             <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
             <div class="contact-item-text">
               <h4>Email</h4>
-              <p>anasabdulaziza.a.a@gmail.com</p>
+              <p>anas4bdul4ziz@gmail.com</p>
             </div>
           </a>
           <a href="mailto:aba34@mail.aub.edu" class="contact-item reveal reveal-delay-1">
@@ -1606,6 +1637,40 @@ textarea.form-control{resize:vertical;min-height:130px;}
     }
   }
   setTimeout(tick, 800);
+})();
+
+/* ---- STAT COUNT-UP ---- */
+(function(){
+  const stats = document.querySelectorAll('.hero-stat-n');
+  const animated = new WeakSet();
+  function animateStat(el){
+    const raw = el.textContent.trim();
+    const match = raw.match(/^([\d.]+)(.*)$/);
+    if(!match) return;
+    const target = parseFloat(match[1]);
+    const suffix = match[2];
+    const isFloat = match[1].includes('.');
+    const duration = 1200;
+    const start = performance.now();
+    function tick(now){
+      const p = Math.min((now-start)/duration, 1);
+      const eased = 1 - Math.pow(1-p, 3);
+      const val = target * eased;
+      el.textContent = (isFloat ? val.toFixed(2) : Math.round(val)) + suffix;
+      if(p < 1) requestAnimationFrame(tick);
+      else el.textContent = raw;
+    }
+    requestAnimationFrame(tick);
+  }
+  const statObs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting && !animated.has(e.target)){
+        animated.add(e.target);
+        animateStat(e.target);
+      }
+    });
+  },{threshold:0.5});
+  stats.forEach(s=>statObs.observe(s));
 })();
 
 /* ---- SCROLL REVEAL ---- */
